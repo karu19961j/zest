@@ -1,63 +1,70 @@
-{% load staticfiles %}
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/base.css">
-</head>
-<body>
-<div class="container">
-    {% block content %}
-        <h1 align="center">Bookmarks</h1>
-        <form method="POST" action="{% url 'bookmarks:add_url' %}">
-        {% csrf_token %} 
-        
-        <div class="field"> 
-        <label for="id_url">Url:</label>       
-            <p class="control">
-             <input type="text" name="url" required="" id="id_url" maxlength="120" class="input" placeholder="Enter Bookmark Link">
-            </p>
-            </div>
-            <input type="submit" name="" value="Add Url">
-        </form>
-       
-        <div class="block">
-        <table class="table">
-        {% for obj in url %}
-        <tr>
-        <td>
-            <div class="card">
-                <div class="card-content">
-                    <p class="title">
-                        <a href="{{ obj.url }}">{{ obj.title }}</a>
-                     </p>
-                     <p class="subtitle">
-                         {{ obj.created }}<br/>
-                    </p>
+    {% load staticfiles %}
+    <html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    </head>
+    <body>
+    <!-- <div class="tabs is-centered">
+      <ul>
+        <li class="is-active"><a>All Bookmarks</a></li>
+        <li><a>Music</a></li>
+        <li><a>Videos</a></li>
+        <li><a>Documents</a></li>
+      </ul>
+    </div> -->
+        <div class="container">
+        {% block content %}
+            <h1 align="center">Bookmarks</h1>
+            <form method="POST" action="{% url 'bookmarks:add_url' %}">
+            {% csrf_token %} 
+            <div class="columns">
+                <div class="column is-10">      
+                <p class="control">
+                 <input type="text" name="url" required="" id="id_url" maxlength="120" class="input" placeholder="Enter Bookmark Link">
+                </p>
                 </div>
-                <footer class="card-footer">
-                    <p class="card-footer-item">
-                    <span>
-                    <a href="#">EDIT</a>
-                    </span>
-                    </p>
-                    <p class="card-footer-item">
-                    <span>
-                    <a href="{{ obj.link_delete_url }}">DELETE</a>
-                    </span>
-                    </p>
+                <div class="column is-3">
+                <button type="submit" class="button is-primary is-outlined"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                </div>
+                </div>
+            </form>
+            <div class="block">
+            <div class="columns">
+            {% for obj in url %}
+            <div class="column is-5" style="min-height: 30vh; max-height: 30vh;">
+                <div class="card">
+                    <div class="card-content">
+                        <p class="title">
+                            <a href="{{ obj.url }}">{{ obj.title }}</a>
+                         </p>
+                         <p class="subtitle">
+                             {{ obj.created }}<br/>
+                        </p>
+                    </div>
+                    <footer class="card-footer">
+                        <p class="card-footer-item">
+                        <span>
+                        <a href="#">EDIT</a>
+                        </span>
+                        </p>
+                        <p class="card-footer-item">
+                        <span>
+                        <a href="{{ obj.link_delete_url }}">DELETE</a>
+                        </span>
+                        </p>
                     </footer>
-            </div>
-            </td>
-            </tr>
-        {% endfor %}
-            </table>
-         </div>
-    {% endblock content %}
-</div>
-</body>
-</html>
-  
+                </div>
+                </div>
+            {% endfor %}
+                </div>
+             </div>
+        {% endblock content %}
+        </div>
+    </body>
+    </html>
+      
 
-   
-  
+       
+      
